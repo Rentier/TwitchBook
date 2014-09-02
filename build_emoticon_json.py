@@ -5,6 +5,12 @@ GLOBAL_EMOTES = 'http://twitchemotes.com/global.json'
 SUBSCRIBER_EMOTES = 'http://twitchemotes.com/subscriber.json'
 URL_PREFIX = "http://static-cdn.jtvnw.net/jtv_user_pictures/"
 
+PERSONS_OF_INTEREST = [
+	"imaqtpie",
+	"owolisha",
+	"scarra"
+]
+
 def get_json(url):
 	response = urllib2.urlopen(url)
 	return json.loads(response.read())
@@ -35,7 +41,8 @@ def get_subscriber():
 	result = {}	
 
 	for name, obj in data.items():
-		result = merge_dicts(result, obj["emotes"])
+		if name in PERSONS_OF_INTEREST:
+			result = merge_dicts(result, obj["emotes"])
 
 	return result
 
